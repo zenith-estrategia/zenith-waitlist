@@ -1,42 +1,43 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
+import { useRef } from "react";
+import dynamic from "next/dynamic";
 
-import { useEffect, useRef, useState } from "react"
-import { MeshGradient } from "@paper-design/shaders-react"
+// Dynamically import MeshGradient with SSR disabled to prevent server-side WebGL issues
+const MeshGradient = dynamic(
+  () => import("@paper-design/shaders-react").then((mod) => mod.MeshGradient),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="absolute inset-0 w-full h-full bg-[#191919]" />
+    ),
+  }
+);
 
 interface ShaderBackgroundProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 export default function ShaderBackground({ children }: ShaderBackgroundProps) {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const [isActive, setIsActive] = useState(false)
-
-  useEffect(() => {
-    const handleMouseEnter = () => setIsActive(true)
-    const handleMouseLeave = () => setIsActive(false)
-
-    const container = containerRef.current
-    if (container) {
-      container.addEventListener("mouseenter", handleMouseEnter)
-      container.addEventListener("mouseleave", handleMouseLeave)
-    }
-
-    return () => {
-      if (container) {
-        container.removeEventListener("mouseenter", handleMouseEnter)
-        container.removeEventListener("mouseleave", handleMouseLeave)
-      }
-    }
-  }, [])
+  const containerRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div ref={containerRef} className="min-h-screen bg-[#191919] relative overflow-hidden">
+    <div
+      ref={containerRef}
+      className="min-h-screen bg-[#191919] relative overflow-hidden"
+    >
       {/* SVG Filters */}
       <svg className="absolute inset-0 w-0 h-0">
+        <title>Background filters for glass and gooey effects</title>
         <defs>
-          <filter id="glass-effect" x="-50%" y="-50%" width="200%" height="200%">
+          <filter
+            id="glass-effect"
+            x="-50%"
+            y="-50%"
+            width="200%"
+            height="200%"
+          >
             <feTurbulence baseFrequency="0.005" numOctaves="1" result="noise" />
             <feDisplacementMap in="SourceGraphic" in2="noise" scale="0.3" />
             <feColorMatrix
@@ -48,7 +49,13 @@ export default function ShaderBackground({ children }: ShaderBackgroundProps) {
               result="tint"
             />
           </filter>
-          <filter id="gooey-filter" x="-50%" y="-50%" width="200%" height="200%">
+          <filter
+            id="gooey-filter"
+            x="-50%"
+            y="-50%"
+            width="200%"
+            height="200%"
+          >
             <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
             <feColorMatrix
               in="blur"
@@ -75,5 +82,5 @@ export default function ShaderBackground({ children }: ShaderBackgroundProps) {
 
       {children}
     </div>
-  )
+  );
 }

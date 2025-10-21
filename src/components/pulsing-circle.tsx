@@ -1,16 +1,34 @@
-"use client"
+"use client";
 
-import { PulsingBorder } from "@paper-design/shaders-react"
-import { motion } from "framer-motion"
-import type { Language } from "@/lib/translations"
-import { translations } from "@/lib/translations"
+import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
+import type { Language } from "@/lib/translations";
+import { translations } from "@/lib/translations";
+
+// Dynamically import PulsingBorder with SSR disabled to prevent server-side WebGL issues
+const PulsingBorder = dynamic(
+  () => import("@paper-design/shaders-react").then((mod) => mod.PulsingBorder),
+  {
+    ssr: false,
+    loading: () => (
+      <div
+        className="w-[75px] h-[75px] rounded-full bg-gradient-to-r from-[#d3ff33] to-[#7d9920] animate-pulse"
+        style={{
+          width: "75px",
+          height: "75px",
+          borderRadius: "50%",
+        }}
+      />
+    ),
+  }
+);
 
 interface PulsingCircleProps {
-  language: Language
+  language: Language;
 }
 
 export default function PulsingCircle({ language }: PulsingCircleProps) {
-  const t = translations[language]
+  const t = translations[language];
 
   return (
     <motion.div
@@ -22,7 +40,14 @@ export default function PulsingCircle({ language }: PulsingCircleProps) {
       <div className="relative w-40 h-40 flex items-center justify-center">
         {/* Pulsing Border Circle */}
         <PulsingBorder
-          colors={["#d3ff33", "#a8cc29", "#7d9920", "#191919", "#2a2a2a", "#3d3d3d"]}
+          colors={[
+            "#d3ff33",
+            "#a8cc29",
+            "#7d9920",
+            "#191919",
+            "#2a2a2a",
+            "#3d3d3d",
+          ]}
           colorBack="#00000000"
           speed={1.2}
           roundness={1}
@@ -56,7 +81,10 @@ export default function PulsingCircle({ language }: PulsingCircleProps) {
           style={{ transform: "scale(1.85)" }}
         >
           <defs>
-            <path id="circle" d="M 50, 50 m -42, 0 a 42,42 0 1,1 84,0 a 42,42 0 1,1 -84,0" />
+            <path
+              id="circle"
+              d="M 50, 50 m -42, 0 a 42,42 0 1,1 84,0 a 42,42 0 1,1 -84,0"
+            />
           </defs>
           <text className="text-xs fill-white/80 instrument tracking-wide">
             <textPath href="#circle" startOffset="0%">
@@ -66,5 +94,5 @@ export default function PulsingCircle({ language }: PulsingCircleProps) {
         </motion.svg>
       </div>
     </motion.div>
-  )
+  );
 }
