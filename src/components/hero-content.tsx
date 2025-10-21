@@ -35,10 +35,6 @@ export default function HeroContent({ language }: HeroContentProps) {
       opacity: 1,
       filter: "blur(0px)",
       y: 0,
-      transition: {
-        duration: 0.8,
-        ease: [0.25, 0.4, 0.25, 1],
-      },
     },
   }
 
@@ -53,6 +49,7 @@ export default function HeroContent({ language }: HeroContentProps) {
         >
           <motion.div
             variants={itemVariants}
+            transition={{ duration: 0.8, ease: "easeOut" }}
             className="inline-flex items-center px-3 py-1 rounded-full bg-white/5 backdrop-blur-sm mb-6 relative"
             style={{
               filter: "url(#glass-effect)",
@@ -64,6 +61,7 @@ export default function HeroContent({ language }: HeroContentProps) {
 
           <motion.h1
             variants={itemVariants}
+            transition={{ duration: 0.8, ease: "easeOut" }}
             className="text-5xl md:text-7xl md:leading-tight tracking-tight font-light text-white mb-6 flex flex-col items-center gap-4"
           >
             <Image
@@ -86,12 +84,13 @@ export default function HeroContent({ language }: HeroContentProps) {
 
           <motion.p
             variants={itemVariants}
+            transition={{ duration: 0.8, ease: "easeOut" }}
             className="text-sm font-light text-white/70 mb-8 leading-relaxed max-w-xl mx-auto"
           >
             {t.description}
           </motion.p>
 
-          <motion.div variants={itemVariants} className="flex justify-center">
+          <motion.div variants={itemVariants} transition={{ duration: 0.8, ease: "easeOut" }} className="flex justify-center">
             <button
               onClick={() => setIsModalOpen(true)}
               className="px-8 py-3 rounded-full bg-[#d3ff33] text-[#191919] font-medium text-sm transition-all duration-200 hover:bg-[#a8cc29] cursor-pointer"
