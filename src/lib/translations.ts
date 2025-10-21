@@ -12,7 +12,7 @@ export const translations = {
       "Zenith não é apenas mais uma agência—é o ápice da estratégia de marketing criativo. Junte-se ao círculo fundador e ajude-nos a moldar o futuro da transformação de marcas. Acesso exclusivo. Visão incomparável. Puro Zenith.",
     cta: "Entrar no Círculo Fundador da Zenith",
     // Pulsing Circle
-    circleText: "• Zenith • Alcance • O • Topo • Zenith • Transforme • Tudo •",
+    circleText: "Zenith • Alcance • O • Topo • Zenith • Transforme • Tudo • ",
     // Modal
     modalTitle: "Entre na Lista de Espera",
     modalSubtitle: "Obtenha acesso antecipado às nossas experiências",
@@ -48,7 +48,7 @@ export const translations = {
       "Zenith isn't just another agency—it's the peak of creative marketing strategy. Join the founding circle and help us shape the future of brand transformation. Exclusive access. Unmatched vision. Pure Zenith.",
     cta: "Join Zenith's Founding Circle",
     // Pulsing Circle
-    circleText: "• Zenith • Reach • The • Peak • Zenith • Transform • Everything •",
+    circleText: "Zenith • Reach • The • Peak • Zenith • Transform • Everything • ",
     // Modal
     modalTitle: "Join the Waitlist",
     modalSubtitle: "Get early access to our experiences",
@@ -84,7 +84,7 @@ export const translations = {
       "Zenith no es solo otra agencia—es la cima de la estrategia de marketing creativo. Únete al círculo fundador y ayúdanos a dar forma al futuro de la transformación de marcas. Acceso exclusivo. Visión inigualable. Puro Zenith.",
     cta: "Únete al Círculo Fundador de Zenith",
     // Pulsing Circle
-    circleText: "• Zenith • Alcanza • La • Cima • Zenith • Transforma • Todo •",
+    circleText: "Zenith • Alcanza • La • Cima • Zenith • Transforma • Todo • ",
     // Modal
     modalTitle: "Únete a la Lista de Espera",
     modalSubtitle: "Obtén acceso anticipado a nuestras experiencias",
@@ -110,3 +110,4 @@ export const translations = {
     submitError: "Algo salió mal. Por favor, intenta de nuevo.",
   },
 }
+
