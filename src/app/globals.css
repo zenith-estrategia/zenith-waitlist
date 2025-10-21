@@ -1,0 +1,97 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+:root {
+  /* Updated color tokens to use shreak skin (#d3ff33) and goth (#191919) with generated shades */
+  --background: #191919; /* Goth - very dark gray/black */
+  --foreground: #d3ff33; /* Shreak skin - bright lime/yellow-green */
+  --card: #2a2a2a; /* Lighter shade of goth */
+  --card-foreground: #d3ff33; /* Shreak skin text */
+  --popover: #242424; /* Slightly lighter than background */
+  --popover-foreground: #d3ff33; /* Shreak skin text */
+  --primary: #d3ff33; /* Shreak skin as primary */
+  --primary-foreground: #191919; /* Goth text on shreak skin */
+  --secondary: #2f2f2f; /* Medium gray shade */
+  --secondary-foreground: #d3ff33; /* Shreak skin text */
+  --muted: #232323; /* Muted dark gray */
+  --muted-foreground: #a8cc29; /* Muted shreak skin */
+  --accent: #d3ff33; /* Shreak skin for accents */
+  --accent-foreground: #191919; /* Goth text on accent */
+  --destructive: #ff3333; /* Red for destructive actions */
+  --destructive-foreground: #ffffff; /* White text for destructive */
+  --border: #3a3a3a; /* Border shade */
+  --input: #2a2a2a; /* Input background */
+  --ring: #d3ff33; /* Shreak skin for focus rings */
+  --chart-1: #d3ff33;
+  --chart-2: #a8cc29;
+  --chart-3: #7d9920;
+  --chart-4: #526617;
+  --chart-5: #26330e;
+  --radius: 0.5rem;
+  --sidebar: #191919; /* Goth sidebar */
+  --sidebar-foreground: #d3ff33; /* Shreak skin sidebar text */
+  --sidebar-primary: #d3ff33; /* Shreak skin for primary sidebar */
+  --sidebar-primary-foreground: #191919; /* Goth text on sidebar primary */
+  --sidebar-accent: #2a2a2a; /* Lighter shade for sidebar accent */
+  --sidebar-accent-foreground: #d3ff33; /* Shreak skin text on sidebar accent */
+  --sidebar-border: #3a3a3a; /* Border shade for sidebar */
+  --sidebar-ring: #d3ff33; /* Shreak skin for sidebar focus */
+  --font-instrument-serif: "Instrument Serif", serif;
+  --font-figtree: "Figtree", sans-serif;
+}
+
+.dark {
+  /* Dark mode using same color scheme */
+  --background: #0f0f0f; /* Even darker goth */
+  --foreground: #d3ff33;
+  --card: #1f1f1f;
+  --card-foreground: #d3ff33;
+  --popover: #1a1a1a;
+  --popover-foreground: #d3ff33;
+  --primary: #d3ff33;
+  --primary-foreground: #0f0f0f;
+  --secondary: #252525;
+  --secondary-foreground: #d3ff33;
+  --muted: #1d1d1d;
+  --muted-foreground: #a8cc29;
+  --accent: #d3ff33;
+  --accent-foreground: #0f0f0f;
+  --destructive: #ff3333;
+  --destructive-foreground: #ffffff;
+  --border: #2f2f2f;
+  --input: #1f1f1f;
+  --ring: #d3ff33;
+  --chart-1: #d3ff33;
+  --chart-2: #a8cc29;
+  --chart-3: #7d9920;
+  --chart-4: #526617;
+  --chart-5: #26330e;
+  --sidebar: #0f0f0f;
+  --sidebar-foreground: #d3ff33;
+  --sidebar-primary: #d3ff33;
+  --sidebar-primary-foreground: #0f0f0f;
+  --sidebar-accent: #1f1f1f;
+  --sidebar-accent-foreground: #d3ff33;
+  --sidebar-border: #2f2f2f;
+  --sidebar-ring: #d3ff33;
+  --font-instrument-serif: "Instrument Serif", serif;
+  --font-figtree: "Figtree", sans-serif;
+}
+
+
+@layer base {
+  * {
+    border-color: var(--border);
+    outline-color: color-mix(in srgb, var(--ring) 50%, transparent);
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    /* Set Figtree as the default font family for the entire website */
+    font-family: var(--font-figtree);
+  }
+}
+
+.instrument {
+  font-family: var(--font-instrument-serif);
+}
