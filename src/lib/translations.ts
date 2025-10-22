@@ -39,6 +39,20 @@ export const translations = {
     companyRequired: "Informe o nome da sua empresa.",
     positionRequired: "Informe seu cargo.",
     submitError: "Algo deu errado. Por favor, tente novamente.",
+    // 404 page translations
+    notFoundTitle: "404",
+    notFoundHeadline: "Página Não Encontrada",
+    notFoundDescription:
+      "Parece que você se perdeu no caminho para o topo. Esta página não existe ou foi movida.",
+    notFoundCta: "Voltar ao Início",
+    // Links Page
+    linksTitle: "Zenith Estratégia",
+    linksBio:
+      "Agência de Marketing Criativo • Transformando Marcas Visionárias",
+    linksPortfolio: "Ver Portfólio",
+    linksServices: "Nossos Serviços",
+    linksContact: "Entre em Contato",
+    linksWaitlist: "Lista de Espera",
   },
   en: {
     // Hero Content
@@ -78,6 +92,19 @@ export const translations = {
     companyRequired: "Please provide your company name.",
     positionRequired: "Please provide your position.",
     submitError: "Something went wrong. Please try again.",
+    // 404 page translations
+    notFoundTitle: "404",
+    notFoundHeadline: "Page Not Found",
+    notFoundDescription:
+      "Looks like you got lost on the way to the top. This page doesn't exist or has been moved.",
+    notFoundCta: "Back to Home",
+    // Links Page
+    linksTitle: "Zenith Estratégia",
+    linksBio: "Creative Marketing Agency • Transforming Visionary Brands",
+    linksPortfolio: "View Portfolio",
+    linksServices: "Our Services",
+    linksContact: "Get in Touch",
+    linksWaitlist: "Join Waitlist",
   },
   es: {
     // Hero Content
@@ -117,5 +144,19 @@ export const translations = {
     companyRequired: "Por favor, proporcione el nombre de su empresa.",
     positionRequired: "Por favor, proporcione su cargo.",
     submitError: "Algo salió mal. Por favor, intente nuevamente.",
+    // 404 page translations
+    notFoundTitle: "404",
+    notFoundHeadline: "Página No Encontrada",
+    notFoundDescription:
+      "Parece que te perdiste en el camino a la cima. Esta página no existe o ha sido movida.",
+    notFoundCta: "Volver al Inicio",
+    // Links Page
+    linksTitle: "Zenith Estratégia",
+    linksBio:
+      "Agencia de Marketing Creativo • Transformando Marcas Visionarias",
+    linksPortfolio: "Ver Portafolio",
+    linksServices: "Nuestros Servicios",
+    linksContact: "Contáctanos",
+    linksWaitlist: "Lista de Espera",
   },
 };

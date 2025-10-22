@@ -55,7 +55,6 @@ const nextConfig: NextConfig = {
     minimumCacheTTL: 60,
   },
   experimental: {
-    optimizeCss: true,
     serverActions: {
       bodySizeLimit: "2mb",
     },
@@ -72,7 +71,6 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  // This is required to support PostHog trailing slash API requests
   skipTrailingSlashRedirect: true,
 };
 
