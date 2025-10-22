@@ -39,7 +39,7 @@ export default function LinksPage() {
       <div className="min-h-screen flex flex-col items-center justify-center p-6 relative">
         <div className="absolute top-6 right-6 z-50">
           <LanguageSelector
-            language={language}
+            currentLanguage={language}
             onLanguageChange={setLanguage}
           />
         </div>
@@ -92,7 +92,7 @@ export default function LinksPage() {
               const Icon = link.icon;
               return (
                 <motion.div
-                  key={index}
+                  key={link.url}
                   initial={{ opacity: 0, x: -20, filter: "blur(10px)" }}
                   animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
                   transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
@@ -119,7 +119,7 @@ export default function LinksPage() {
               const Icon = social.icon;
               return (
                 <motion.a
-                  key={index}
+                  key={social.url}
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
