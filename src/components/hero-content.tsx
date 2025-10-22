@@ -6,6 +6,7 @@ import { useState } from "react";
 import type { Language } from "@/lib/translations";
 import { translations } from "@/lib/translations";
 import WaitlistModal from "./waitlist-modal";
+import posthog from "posthog-js";
 
 interface HeroContentProps {
   language: Language;
@@ -37,6 +38,11 @@ export default function HeroContent({ language }: HeroContentProps) {
       filter: "blur(0px)",
       y: 0,
     },
+  };
+
+  const handleCtaClick = () => {
+    posthog.capture("cta_click");
+    setIsModalOpen(true);
   };
 
   return (
@@ -104,7 +110,7 @@ export default function HeroContent({ language }: HeroContentProps) {
           >
             <button
               type="button"
-              onClick={() => setIsModalOpen(true)}
+              onClick={handleCtaClick}
               className="px-8 py-3 rounded-full bg-[#d3ff33] text-[#191919] font-medium text-sm transition-all duration-200 hover:bg-[#a8cc29] cursor-pointer"
             >
               {t.cta}
@@ -113,7 +119,6 @@ export default function HeroContent({ language }: HeroContentProps) {
         </motion.div>
       </main>
 
-      {/* Waitlist modal */}
       <WaitlistModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}

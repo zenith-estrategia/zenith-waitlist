@@ -8,6 +8,7 @@ const figtree = Figtree({
   weight: ["300", "400", "500", "600", "700"],
   variable: "--font-figtree",
   display: "swap",
+  preload: true,
 });
 
 const instrumentSerif = Instrument_Serif({
@@ -16,6 +17,7 @@ const instrumentSerif = Instrument_Serif({
   style: ["normal", "italic"],
   variable: "--font-instrument-serif",
   display: "swap",
+  preload: true,
 });
 
 const siteConfig = {

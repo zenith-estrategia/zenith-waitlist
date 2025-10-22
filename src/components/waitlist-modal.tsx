@@ -9,6 +9,7 @@ import {
   type WaitlistFormData,
   waitlistFormSchema,
 } from "@/lib/validations/waitlist";
+import posthog from "posthog-js";
 
 interface WaitlistModalProps {
   isOpen: boolean;
@@ -119,7 +120,7 @@ export default function WaitlistModal({
       }
 
       // Sucesso!
-      console.log("Entrada criada na waitlist:", data.id);
+      posthog.capture("waitlist_success", { email: formData.email });
       setIsSubmitting(false);
       setIsSubmitted(true);
 
@@ -132,7 +133,9 @@ export default function WaitlistModal({
         onClose();
       }, 2500);
     } catch (error) {
-      console.error("Erro ao enviar formulário:", error);
+      posthog.capture("waitlist_error", {
+        error: error instanceof Error ? error.message : "Unknown error",
+      });
       setIsSubmitting(false);
       setSubmitError(t.submitError);
     }
