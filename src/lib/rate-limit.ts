@@ -36,7 +36,7 @@ export const waitlistRateLimit = redis
  * Verifica se o rate limiting está habilitado
  */
 export const isRateLimitConfigured = (): boolean => {
-  return isRateLimitEnabled === true;
+  return !!isRateLimitEnabled;
 };
 
 /**
