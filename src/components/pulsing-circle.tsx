@@ -5,7 +5,6 @@ import dynamic from "next/dynamic";
 import type { Language } from "@/lib/translations";
 import { translations } from "@/lib/translations";
 
-// Dynamically import PulsingBorder with SSR disabled to prevent server-side WebGL issues
 const PulsingBorder = dynamic(
   () => import("@paper-design/shaders-react").then((mod) => mod.PulsingBorder),
   {
@@ -38,16 +37,8 @@ export default function PulsingCircle({ language }: PulsingCircleProps) {
       className="absolute bottom-8 right-8 z-30"
     >
       <div className="relative w-40 h-40 flex items-center justify-center">
-        {/* Pulsing Border Circle */}
         <PulsingBorder
-          colors={[
-            "#d3ff33",
-            "#a8cc29",
-            "#7d9920",
-            "#191919",
-            "#2a2a2a",
-            "#3d3d3d",
-          ]}
+          colors={["#a8cc29", "#7d9920", "#2a2a2a", "#3d3d3d"]}
           colorBack="#00000000"
           speed={1.2}
           roundness={1}
@@ -62,13 +53,11 @@ export default function PulsingCircle({ language }: PulsingCircleProps) {
           rotation={0}
           frame={9161408.251009725}
           style={{
-            width: "75px",
-            height: "75px",
+            width: "140px",
+            height: "140px",
             borderRadius: "50%",
           }}
         />
-
-        {/* Rotating Text Around the Pulsing Border */}
         <motion.svg
           className="absolute inset-0 w-full h-full"
           viewBox="0 0 100 100"
@@ -79,6 +68,8 @@ export default function PulsingCircle({ language }: PulsingCircleProps) {
             ease: "linear",
           }}
           style={{ transform: "scale(1.85)" }}
+          aria-label="Rotating Text Around the Pulsing Border"
+          role="img"
         >
           <defs>
             <path

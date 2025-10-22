@@ -1,4 +1,4 @@
-export type Language = "pt" | "en" | "es"
+export type Language = "pt" | "en" | "es";
 
 export const translations = {
   pt: {
@@ -48,7 +48,8 @@ export const translations = {
       "Zenith isn't just another agency—it's the peak of creative marketing strategy. Join the founding circle and help us shape the future of brand transformation. Exclusive access. Unmatched vision. Pure Zenith.",
     cta: "Join Zenith's Founding Circle",
     // Pulsing Circle
-    circleText: "Zenith • Reach • The • Peak • Zenith • Transform • Everything • ",
+    circleText:
+      "Zenith • Reach • The • Peak • Zenith • Transform • Everything • ",
     // Modal
     modalTitle: "Join the Waitlist",
     modalSubtitle: "Get early access to our experiences",
@@ -109,5 +110,4 @@ export const translations = {
     positionRequired: "El cargo es obligatorio",
     submitError: "Algo salió mal. Por favor, intenta de nuevo.",
   },
-}
-
+};

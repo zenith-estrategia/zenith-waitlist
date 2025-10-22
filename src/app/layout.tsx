@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import type React from "react";
+import Script from "next/script";
 import { Figtree, Instrument_Serif } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 const figtree = Figtree({
@@ -134,14 +136,14 @@ export default function RootLayout({
           href="https://fonts.googleapis.com"
           crossOrigin="anonymous"
         />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationSchema),
-          }}
-        />
+        <Script id="organization-schema" type="application/ld+json">
+          {JSON.stringify(organizationSchema)}
+        </Script>
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <SpeedInsights />
+      </body>
     </html>
   );
 }

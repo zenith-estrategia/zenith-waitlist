@@ -4,7 +4,6 @@ import type React from "react";
 import { useRef } from "react";
 import dynamic from "next/dynamic";
 
-// Dynamically import MeshGradient with SSR disabled to prevent server-side WebGL issues
 const MeshGradient = dynamic(
   () => import("@paper-design/shaders-react").then((mod) => mod.MeshGradient),
   {
@@ -27,7 +26,6 @@ export default function ShaderBackground({ children }: ShaderBackgroundProps) {
       ref={containerRef}
       className="min-h-screen bg-[#191919] relative overflow-hidden"
     >
-      {/* SVG Filters */}
       <svg className="absolute inset-0 w-0 h-0">
         <title>Background filters for glass and gooey effects</title>
         <defs>
@@ -68,7 +66,6 @@ export default function ShaderBackground({ children }: ShaderBackgroundProps) {
         </defs>
       </svg>
 
-      {/* Background Shaders */}
       <MeshGradient
         className="absolute inset-0 w-full h-full"
         colors={["#191919", "#d3ff33", "#a8cc29", "#2a2a2a", "#7d9920"]}

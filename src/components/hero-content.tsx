@@ -1,18 +1,19 @@
-"use client"
-import WaitlistModal from "./waitlist-modal"
-import { useState } from "react"
-import type { Language } from "@/lib/translations"
-import { translations } from "@/lib/translations"
-import Image from "next/image"
-import { motion } from "framer-motion"
+"use client";
+
+import WaitlistModal from "./waitlist-modal";
+import { useState } from "react";
+import type { Language } from "@/lib/translations";
+import { translations } from "@/lib/translations";
+import Image from "next/image";
+import { motion } from "framer-motion";
 
 interface HeroContentProps {
-  language: Language
+  language: Language;
 }
 
 export default function HeroContent({ language }: HeroContentProps) {
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const t = translations[language]
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const t = translations[language];
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -23,7 +24,7 @@ export default function HeroContent({ language }: HeroContentProps) {
         delayChildren: 0.3,
       },
     },
-  }
+  };
 
   const itemVariants = {
     hidden: {
@@ -36,7 +37,7 @@ export default function HeroContent({ language }: HeroContentProps) {
       filter: "blur(0px)",
       y: 0,
     },
-  }
+  };
 
   return (
     <>
@@ -56,7 +57,9 @@ export default function HeroContent({ language }: HeroContentProps) {
             }}
           >
             <div className="absolute top-0 left-1 right-1 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent rounded-full" />
-            <span className="text-white/90 text-xs font-light relative z-10">{t.badge}</span>
+            <span className="text-white/90 text-xs font-light relative z-10">
+              {t.badge}
+            </span>
           </motion.div>
 
           <motion.h1
@@ -71,14 +74,18 @@ export default function HeroContent({ language }: HeroContentProps) {
               height={93}
               className="w-[200px] md:w-[280px] h-auto"
               style={{
-                filter: "drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))",
+                filter:
+                  "drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))",
               }}
               priority
             />
             <span className="text-3xl md:text-5xl">
               {t.headline2}
               <br />
-              <span className="font-light italic instrument">{t.headline3}</span> {t.headline4}
+              <span className="font-light italic instrument">
+                {t.headline3}
+              </span>{" "}
+              {t.headline4}
             </span>
           </motion.h1>
 
@@ -90,8 +97,13 @@ export default function HeroContent({ language }: HeroContentProps) {
             {t.description}
           </motion.p>
 
-          <motion.div variants={itemVariants} transition={{ duration: 0.8, ease: "easeOut" }} className="flex justify-center">
+          <motion.div
+            variants={itemVariants}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="flex justify-center"
+          >
             <button
+              type="button"
               onClick={() => setIsModalOpen(true)}
               className="px-8 py-3 rounded-full bg-[#d3ff33] text-[#191919] font-medium text-sm transition-all duration-200 hover:bg-[#a8cc29] cursor-pointer"
             >
@@ -102,7 +114,11 @@ export default function HeroContent({ language }: HeroContentProps) {
       </main>
 
       {/* Waitlist modal */}
-      <WaitlistModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} language={language} />
+      <WaitlistModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        language={language}
+      />
     </>
-  )
+  );
 }
