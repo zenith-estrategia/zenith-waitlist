@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Globe, Instagram, Linkedin, Mail } from "lucide-react";
+import { Globe, Instagram, Facebook, Mail } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import ShaderBackground from "@/components/shader-background";
@@ -24,9 +24,9 @@ const socialLinks = [
     label: "Instagram",
   },
   {
-    icon: Linkedin,
+    icon: Facebook,
     url: "https://facebook.com/zenith.estrategia",
-    label: "LinkedIn",
+    label: "Facebook",
   },
   { icon: Mail, url: "mailto:contato@zenithestrategia.com.br", label: "Email" },
 ];
