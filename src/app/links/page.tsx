@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Instagram, Linkedin, Mail, Globe } from "lucide-react";
+import { Globe, Instagram, Linkedin, Mail } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import ShaderBackground from "@/components/shader-background";
@@ -11,9 +11,9 @@ import { useState } from "react";
 
 const links = [
   {
-    title: { pt: "Contato", en: "Contact", es: "Contacto" },
-    url: "mailto:contato@zenithestrategia.com.br",
-    icon: Mail,
+    title: { pt: "Site", en: "Site", es: "Sitio" },
+    url: "https://www.zenithestrategia.com.br",
+    icon: Globe,
   },
 ];
 
@@ -36,7 +36,7 @@ export default function LinksPage() {
 
   return (
     <ShaderBackground>
-      <div className="min-h-screen flex flex-col items-center justify-center p-6 relative">
+      <div className="min-h-screen flex flex-col items-center justify-center p-6 relative z-10">
         <div className="absolute top-6 right-6 z-50">
           <LanguageSelector
             currentLanguage={language}
@@ -57,7 +57,7 @@ export default function LinksPage() {
             className="flex justify-center"
           >
             <Image
-              src="/zenith-logo.jpg"
+              src="/zenith-logo.svg"
               alt="Zenith Logo"
               width={200}
               height={67}

@@ -26,7 +26,9 @@ export default function NotFound() {
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-[#191919]">
-      <ShaderBackground>{null}</ShaderBackground>
+      <div className="absolute inset-0 z-0">
+        <ShaderBackground>{null}</ShaderBackground>
+      </div>
 
       <div className="absolute top-6 right-6 z-50">
         <LanguageSelector
@@ -44,7 +46,7 @@ export default function NotFound() {
             className="mb-8"
           >
             <Image
-              src="/zenith-logo.jpg"
+              src="/zenith-logo.svg"
               alt="Zenith Logo"
               width={200}
               height={66}

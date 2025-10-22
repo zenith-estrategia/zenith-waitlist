@@ -11,7 +11,7 @@ const MeshGradient = dynamic(
     loading: () => (
       <div className="absolute inset-0 w-full h-full bg-[#191919]" />
     ),
-  },
+  }
 );
 
 interface ShaderBackgroundProps {
@@ -67,12 +67,12 @@ export default function ShaderBackground({ children }: ShaderBackgroundProps) {
       </svg>
 
       <MeshGradient
-        className="absolute inset-0 w-full h-full"
+        className="absolute inset-0 w-full h-full z-0"
         colors={["#191919", "#d3ff33", "#a8cc29", "#2a2a2a", "#7d9920"]}
         speed={0.3}
       />
       <MeshGradient
-        className="absolute inset-0 w-full h-full opacity-60"
+        className="absolute inset-0 w-full h-full opacity-60 z-0"
         colors={["#191919", "#d3ff33", "#a8cc29", "#191919"]}
         speed={0.2}
       />
