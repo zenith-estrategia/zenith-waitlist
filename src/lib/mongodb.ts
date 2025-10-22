@@ -1,8 +1,12 @@
 import { MongoClient, ServerApiVersion } from "mongodb";
+import { attachDatabasePool } from "@vercel/functions";
 
 /**
  * Configuração global do MongoDB com singleton pattern
  * Evita múltiplas conexões ao banco de dados
+ *
+ * Utiliza @vercel/functions attachDatabasePool para otimizar
+ * gerenciamento de conexões em ambientes serverless
  */
 
 if (!process.env.MONGODB_URI) {
@@ -32,11 +36,13 @@ if (process.env.NODE_ENV === "development") {
 
   if (!globalWithMongo._mongoClientPromise) {
     client = new MongoClient(uri, options);
+    attachDatabasePool(client);
     globalWithMongo._mongoClientPromise = client.connect();
   }
   clientPromise = globalWithMongo._mongoClientPromise;
 } else {
   client = new MongoClient(uri, options);
+  attachDatabasePool(client);
   clientPromise = client.connect();
 }
 
