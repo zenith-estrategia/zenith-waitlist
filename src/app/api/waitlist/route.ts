@@ -8,6 +8,7 @@ import {
 import { waitlistFormSchema } from "@/lib/validations/waitlist";
 import { waitlistService } from "@/lib/mongodb-service";
 import type { WaitlistCreationResponse } from "@/types/mongodb";
+import { logger } from "@/lib/logger";
 
 /**
  * Schema de validação das variáveis de ambiente
@@ -61,10 +62,9 @@ export async function POST(request: NextRequest) {
     });
 
     if (!envValidation.success) {
-      console.error(
-        "Erro de configuração MongoDB:",
-        envValidation.error.format()
-      );
+      logger.error("Erro de configuração MongoDB", {
+        errors: envValidation.error.format(),
+      });
       return NextResponse.json(
         {
           success: false,
@@ -120,10 +120,6 @@ export async function POST(request: NextRequest) {
         id: entryId.toString(),
       };
 
-      console.log(
-        `✅ Entrada criada na waitlist - ID: ${entryId}, Email: ${email}`
-      );
-
       return NextResponse.json(response, { status: 201 });
     } catch (error) {
       // Tratamento de erro específico para email duplicado
@@ -157,7 +153,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    console.error("Erro ao criar entrada na waitlist:", error);
+    logger.error("Erro ao criar entrada na waitlist", { error });
 
     // Retorna erro mais amigável ao usuário
     const errorMessage =
@@ -168,44 +164,6 @@ export async function POST(request: NextRequest) {
         success: false,
         message: "Erro ao processar sua inscrição. Tente novamente.",
         error: errorMessage,
-      },
-      { status: 500 }
-    );
-  }
-}
-
-/**
- * GET /api/waitlist
- * Endpoint para listar entradas da waitlist (opcional - para admin)
- */
-export async function GET(request: NextRequest) {
-  try {
-    // TODO: Adicionar autenticação para proteger este endpoint
-    const { searchParams } = new URL(request.url);
-    const page = Number.parseInt(searchParams.get("page") || "1", 10);
-    const limit = Number.parseInt(searchParams.get("limit") || "50", 10);
-    const status = searchParams.get("status") as
-      | "pending"
-      | "contacted"
-      | "converted"
-      | "declined"
-      | null;
-
-    const result = await waitlistService.listEntries({
-      page,
-      limit,
-      status: status || undefined,
-    });
-
-    return NextResponse.json(result, { status: 200 });
-  } catch (error) {
-    console.error("Erro ao listar entradas da waitlist:", error);
-
-    return NextResponse.json(
-      {
-        success: false,
-        message: "Erro ao buscar entradas da waitlist",
-        error: error instanceof Error ? error.message : "Erro desconhecido",
       },
       { status: 500 }
     );
