@@ -19,7 +19,7 @@ const PulsingBorder = dynamic(
         }}
       />
     ),
-  }
+  },
 );
 
 interface PulsingCircleProps {

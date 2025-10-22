@@ -1,8 +1,8 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import type React from "react";
 import { useRef } from "react";
-import dynamic from "next/dynamic";
 
 const MeshGradient = dynamic(
   () => import("@paper-design/shaders-react").then((mod) => mod.MeshGradient),
@@ -11,7 +11,7 @@ const MeshGradient = dynamic(
     loading: () => (
       <div className="absolute inset-0 w-full h-full bg-[#191919]" />
     ),
-  }
+  },
 );
 
 interface ShaderBackgroundProps {

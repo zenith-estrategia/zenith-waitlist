@@ -1,11 +1,11 @@
 "use client";
 
-import WaitlistModal from "./waitlist-modal";
+import { motion } from "framer-motion";
+import Image from "next/image";
 import { useState } from "react";
 import type { Language } from "@/lib/translations";
 import { translations } from "@/lib/translations";
-import Image from "next/image";
-import { motion } from "framer-motion";
+import WaitlistModal from "./waitlist-modal";
 
 interface HeroContentProps {
   language: Language;

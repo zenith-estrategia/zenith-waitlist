@@ -1,8 +1,41 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## 🎯 Zenith Waitlist
+
+Aplicação de waitlist moderna com MongoDB Atlas para captura e gerenciamento de leads.
+
+### ✨ Funcionalidades
+
+- ✅ Formulário de waitlist validado com Zod
+- ✅ Armazenamento em MongoDB Atlas
+- ✅ Rate limiting (proteção contra spam)
+- ✅ Interface moderna e responsiva
+- ✅ Suporte a múltiplos idiomas (PT/EN)
+- ✅ Validação de emails duplicados
+- ✅ Sistema de tags e categorização
+- ✅ Índices otimizados para performance
+- ✅ API RESTful para gerenciamento de leads
+
+### ⚠️ Configuração Necessária
+
+Antes de começar, configure o MongoDB Atlas:
+
+1. **Configure as variáveis de ambiente:**
+
+   ```bash
+   # Copie o arquivo .env.example para .env.local
+   cp .env.example .env.local
+
+   # Edite .env.local com suas credenciais
+   MONGODB_URI=mongodb+srv://username:password@cluster.xxxxx.mongodb.net/?retryWrites=true&w=majority
+   MONGODB_DB_NAME=zenith_waitlist
+   ```
+
+2. **Consulte o guia completo:** [MONGODB_SETUP.md](./MONGODB_SETUP.md)
+
 ## Getting Started
 
-First, run the development server:
+First, configure your environment variables (see `MONGODB_SETUP.md`), then run the development server:
 
 ```bash
 npm run dev

@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import type { Language } from "@/lib/translations";
-import { motion, AnimatePresence } from "framer-motion";
 
 interface LanguageSelectorProps {
   currentLanguage: Language;

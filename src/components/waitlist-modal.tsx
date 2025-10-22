@@ -2,8 +2,13 @@
 
 import type React from "react";
 import { useState } from "react";
+import type { z } from "zod";
 import type { Language } from "@/lib/translations";
 import { translations } from "@/lib/translations";
+import {
+  type WaitlistFormData,
+  waitlistFormSchema,
+} from "@/lib/validations/waitlist";
 
 interface WaitlistModalProps {
   isOpen: boolean;
@@ -18,41 +23,19 @@ interface FormErrors {
   position?: string;
 }
 
-const validateEmail = (email: string): boolean => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
-};
-
-const validateForm = (
-  formData: {
-    name: string;
-    email: string;
-    company: string;
-    position: string;
-  },
-  t: (typeof translations)["pt"]
+/**
+ * Converte erros do Zod para o formato do formulário
+ */
+const zodErrorsToFormErrors = (
+  zodError: z.ZodError<WaitlistFormData>
 ): FormErrors => {
   const errors: FormErrors = {};
+  const fieldErrors = zodError.flatten().fieldErrors;
 
-  if (!formData.name.trim()) {
-    errors.name = t.nameRequired;
-  } else if (formData.name.trim().length < 2) {
-    errors.name = t.nameMinLength;
-  }
-
-  if (!formData.email.trim()) {
-    errors.email = t.emailRequired;
-  } else if (!validateEmail(formData.email)) {
-    errors.email = t.emailInvalid;
-  }
-
-  if (!formData.company.trim()) {
-    errors.company = t.companyRequired;
-  }
-
-  if (!formData.position.trim()) {
-    errors.position = t.positionRequired;
-  }
+  if (fieldErrors.name?.[0]) errors.name = fieldErrors.name[0];
+  if (fieldErrors.email?.[0]) errors.email = fieldErrors.email[0];
+  if (fieldErrors.company?.[0]) errors.company = fieldErrors.company[0];
+  if (fieldErrors.position?.[0]) errors.position = fieldErrors.position[0];
 
   return errors;
 };
@@ -80,10 +63,11 @@ export default function WaitlistModal({
     e.preventDefault();
     setSubmitError("");
 
-    const validationErrors = validateForm(formData, t);
+    // Validação com Zod
+    const validation = waitlistFormSchema.safeParse(formData);
 
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
+    if (!validation.success) {
+      setErrors(zodErrorsToFormErrors(validation.error));
       setTouchedFields(new Set(["name", "email", "company", "position"]));
       return;
     }
@@ -91,20 +75,55 @@ export default function WaitlistModal({
     setIsSubmitting(true);
 
     try {
-      await new Promise((resolve, reject) => {
-        setTimeout(() => {
-          const success = Math.random() > 0.1;
-          if (success) {
-            resolve(true);
-          } else {
-            reject(new Error("Network error"));
-          }
-        }, 1500);
+      // Chamada à API de waitlist
+      const response = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(validation.data),
       });
 
+      const data = await response.json();
+
+      if (!response.ok) {
+        // Trata erros de validação do servidor
+        if (response.status === 400 && data.errors) {
+          const serverErrors: FormErrors = {};
+          if (data.errors.name?.[0]) serverErrors.name = data.errors.name[0];
+          if (data.errors.email?.[0]) serverErrors.email = data.errors.email[0];
+          if (data.errors.company?.[0])
+            serverErrors.company = data.errors.company[0];
+          if (data.errors.position?.[0])
+            serverErrors.position = data.errors.position[0];
+
+          setErrors(serverErrors);
+          setTouchedFields(new Set(["name", "email", "company", "position"]));
+        } else if (response.status === 409) {
+          // Email duplicado
+          setSubmitError(
+            data.message || "Este email já está cadastrado na lista de espera."
+          );
+        } else if (response.status === 429) {
+          // Rate limit
+          setSubmitError(
+            data.message ||
+              "Muitas tentativas. Por favor, aguarde um momento antes de tentar novamente."
+          );
+        } else {
+          // Outros erros
+          setSubmitError(data.message || t.submitError);
+        }
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Sucesso!
+      console.log("Entrada criada na waitlist:", data.id);
       setIsSubmitting(false);
       setIsSubmitted(true);
 
+      // Fecha o modal após 2.5 segundos
       setTimeout(() => {
         setFormData({ name: "", email: "", company: "", position: "" });
         setIsSubmitted(false);
@@ -112,7 +131,8 @@ export default function WaitlistModal({
         setTouchedFields(new Set());
         onClose();
       }, 2500);
-    } catch (_error) {
+    } catch (error) {
+      console.error("Erro ao enviar formulário:", error);
       setIsSubmitting(false);
       setSubmitError(t.submitError);
     }
@@ -140,12 +160,16 @@ export default function WaitlistModal({
     const { name } = e.target;
     setTouchedFields((prev) => new Set(prev).add(name));
 
-    const fieldErrors = validateForm(formData, t);
-    if (fieldErrors[name as keyof FormErrors]) {
-      setErrors((prev) => ({
-        ...prev,
-        [name]: fieldErrors[name as keyof FormErrors],
-      }));
+    // Validação com Zod
+    const validation = waitlistFormSchema.safeParse(formData);
+    if (!validation.success) {
+      const fieldErrors = zodErrorsToFormErrors(validation.error);
+      if (fieldErrors[name as keyof FormErrors]) {
+        setErrors((prev) => ({
+          ...prev,
+          [name]: fieldErrors[name as keyof FormErrors],
+        }));
+      }
     }
   };
 
@@ -161,14 +185,16 @@ export default function WaitlistModal({
   if (!isOpen) return null;
 
   return (
+    // biome-ignore lint/a11y/useSemanticElements: Modal backdrop requires div for proper layout
     <div
-      role="presentation"
-      tabIndex={-1}
+      role="button"
+      tabIndex={0}
       className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
       onClick={handleClose}
       onKeyDown={(e) => {
-        if (e.key === "Escape") handleClose();
+        if (e.key === "Escape" || e.key === "Enter") handleClose();
       }}
+      aria-label="Fechar modal"
     >
       <div
         role="dialog"
